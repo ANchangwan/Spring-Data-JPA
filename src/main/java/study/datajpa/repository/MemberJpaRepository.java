@@ -1,0 +1,24 @@
+package study.datajpa.repository;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import study.datajpa.entity.Member;
+
+@Repository
+public class MemberJpaRepository {
+    @PersistenceContext
+    private EntityManager em;
+
+    public Member save(Member member) {
+        em.persist(member);
+        return member;
+    }
+
+    public Member find(Long Id){
+        return em.find(Member.class, Id);
+    }
+
+
+}
