@@ -7,6 +7,10 @@ import lombok.*;
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of = {"id", "username", "age"})
+@NamedQuery(
+        name="Member.findByUsername",
+        query = "select o from Member o where o.username = :username"
+)
 public class Member {
 
     @Id @GeneratedValue
@@ -20,9 +24,9 @@ public class Member {
     @JoinColumn(name = "team_id")
     private Team team;
 
-    public Member(String username) {
+    public Member(String username, int age) {
         this.username = username;
-
+        this.age = age;
     }
 
     public Member(String username, int age, Team team) {
