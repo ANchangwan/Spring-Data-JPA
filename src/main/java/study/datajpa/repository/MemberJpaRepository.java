@@ -3,7 +3,7 @@ package study.datajpa.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
 import study.datajpa.entity.Member;
 
 import java.util.List;
@@ -46,6 +46,20 @@ public class MemberJpaRepository {
         return em.createQuery("select m from Member m" +
                 " order by m.age desc" ,Member.class)
                 .setMaxResults(1)
+                .getSingleResult();
+    }
+
+    public List<Member> findByPage(int age, int offset, int limit){
+        return em.createQuery("select m from Member m where m.age = :age order by m.username desc",Member.class)
+                .setParameter("age", age)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
+
+    public long totalCount(int age){
+        return em.createQuery("select count(m) from Member m where m.age = :age",Long.class)
+                .setParameter("age",age)
                 .getSingleResult();
     }
 
