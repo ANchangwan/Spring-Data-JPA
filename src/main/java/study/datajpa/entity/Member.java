@@ -11,7 +11,7 @@ import lombok.*;
         name="Member.findByUsername",
         query = "select o from Member o where o.username = :username"
 )
-public class Member {
+public class Member extends BaseEntity{
 
     @Id @GeneratedValue
     @Column(name = "member_id")
@@ -37,10 +37,17 @@ public class Member {
         }
     }
 
+    public Member(String username) {
+        this.username = username;
+    }
+
+
+
     public void changeTeam(Team team) {
         this.team = team;
         team.getMembers().add(this);
     }
+
 
 
 }
