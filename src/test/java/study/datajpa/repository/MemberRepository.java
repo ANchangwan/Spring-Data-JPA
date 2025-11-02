@@ -33,6 +33,8 @@ public interface MemberRepository extends JpaRepository<Member, Long>,MemberRepo
     Page<Member> findByAge(int age, Pageable pageable);
 
 
+
+
     @Modifying(clearAutomatically = true)
     @Query("update Member m set m.age = m.age + 1 where m.age >= :age")
     int bulkeAgePlus(@Param("age") int age);

@@ -3,11 +3,9 @@ package study.datajpa.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 import study.datajpa.entity.Member;
 
 import java.util.List;
-
 
 @RequiredArgsConstructor
 public class MemberRepositoryImpl implements MemberRepositoryCustom {

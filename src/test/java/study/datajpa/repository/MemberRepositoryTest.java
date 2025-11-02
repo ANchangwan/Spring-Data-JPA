@@ -25,6 +25,7 @@ class MemberRepositoryTest {
     @Autowired
     MemberRepository memberRepository;
 
+
     @Autowired
     TeamRepository teamRepository;
 
@@ -155,6 +156,30 @@ class MemberRepositoryTest {
         System.out.println("findMember.createdBy = " + findMember.getCreatedBy());
         System.out.println("findMember.updatedBy = " + findMember.getLastModifiedBy());
 
+    }
+
+    @Test
+    void testFindByAge(){
+       memberRepository.save(new Member("member1", 10));
+       memberRepository.save(new Member("member2", 10));
+       memberRepository.save(new Member("member3", 10));
+       memberRepository.save(new Member("member4", 21));
+       memberRepository.save(new Member("member5", 50));
+
+        PageRequest pageRequest = PageRequest.of(1, 3);
+        Page<Member> page = memberRepository.findByAge(10, pageRequest);
+
+        assertThat(page.getContent().size()).isEqualTo(1);
+
+        PageRequest pageRequest1 = PageRequest.of(0, 3);
+        Page<Member> page1 = memberRepository.findByAge(10, pageRequest1);
+        assertThat(page1.getContent().size()).isEqualTo(3);
+
+    }
+
+    @Test
+    void findMemberByusername(){
+        List<Member> members = memberRepository.findCustomByUsername("member1");
     }
 
 
